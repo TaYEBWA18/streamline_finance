@@ -71,7 +71,20 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       $user=User::findOrFail($id);// get the current user ID
+       dd($user); 
+        $request->validate([
+            'name' =>'required',
+            'email' => 'required|email|max:255|unique:user,email,' . $user_id, // Ignore the current user's email
+            'gender' =>'required',
+            'phone' =>'required',  
+        ]);
+        dd($request); 
+       $user->update($request->validated());
+        dd($request->validated());
+
+        return redirect()->route('users.index')
+                        ->with('success','User updated successfully');
     }
 
     /**

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +26,9 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show');
     //To restore innactive users
     Route::post('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
+
+    //Role Controller Routes
+    Route::resource('roles', RoleController::class);
     
 });
 //route to show the registration page/
