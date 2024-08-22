@@ -16,6 +16,11 @@ use App\Http\Controllers\PermissionController;
 |
 */
 Route::middleware(['auth'])->group(function () {
+    //Home page route
+    Route::get('/home', function () { return view('users.home'); })->name('home');
+
+    //Permission Controller Routes
+    Route::resource('permissions', PermissionController::class);
     //user routes protected by auth middleware
     Route::resource('users', UserController::class);
     //logout route
@@ -35,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('/signup', [UserController::class,'create'])->name('signup');
 
 //to return the log in page
-Route::get('/', function () {return view('users.login'); })->name('loginpage');
+Route::get('/login', function () {return view('users.login'); })->name('loginpage');
 //for the login authentication logic
-Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::get('/', [UserController::class, 'login'])->name('login');
 

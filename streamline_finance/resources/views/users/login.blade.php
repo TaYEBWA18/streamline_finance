@@ -34,7 +34,7 @@
       
       <button type="submit"><b>Login</b></button><br><br>
     </form> 
-    <div style="display: flex; gap: 20px;"><a href="{{route('users.create')}}"><b>Sign Up</b></a><a><b>Forgot Password</b></a></div>
+    <div style="display: flex; gap: 20px;"><a><b>Forgot Password</b></a></div>
     </div>
     
     

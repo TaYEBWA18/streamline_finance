@@ -15,11 +15,13 @@ class RoleController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    { 
+       // To View Permissions attached to this role
+        $permissions=Permission::all();
         //to return the index view
         $roles = Role::paginate(10);
-
-        return view('roles.index', compact('roles'));
+       
+        return view('roles.index', compact('roles', 'permissions'));
     }
 
     /**
@@ -40,7 +42,6 @@ class RoleController extends Controller
         $role = Role::findById($id);
 
         //to detach all permissions from the role
-        // $role->syncPermissions([]);
 
         //to attach the selected permissions to the role
         $role->syncPermissions($request->permissions);
@@ -57,7 +58,9 @@ class RoleController extends Controller
 
         //to create a new role
         $role = Role::create(['name' => $request->name]);
-        $role->assignPermissions();
+        // Sync permissions with the role
+        $role->syncPermissions($request->permissions);
+
 
         //to redirect to the roles index page
         return redirect()->route('roles.index')->with('success', 'Role created successfully.');
@@ -77,7 +80,7 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -93,7 +96,12 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role=Role::findOrFail($id);
+
+        $role->delete();
+         
+        return redirect()->route('roles.index')
+                        ->with('success','Role deleted successfully');
     }
     
 }

@@ -6,9 +6,28 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Http\Requests\CreateUserRequest;
+
 
 class UserController extends Controller
 {
+    protected $user;
+
+    public function __construct()
+    {
+//         $user = User::findOrFail($id);
+//         $this->middleware('auth');
+//         $this->user = Auth::user();
+//         // Load the user with their roles and permissions
+//         $this->user->load('roles', 'permissions');
+
+        $this->middleware('permission:create_users', ['only' => ['create','store']]);
+        $this->middleware('permission:delete_users', ['only' => ['destroy']]);
+        $this->middleware('permission:edit_users', ['only' => ['edit','update']]);
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -24,24 +43,24 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles=Role::all();// Pick the roles available from the roles Table
+
+        return view('users.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        $request->validate([
-            'name' =>'required',
-            'email' =>'required',
-            'password' =>'required',
-            'gender' =>'required',
-            'phone' =>'required',  
-        ]);
-        User::create(
+        
+        $user=User::create(
             $request->all(),
         );
+        // dd($user);
+        $user->assignRole($request->roles);
+        
+        // $user->syncRoles();// Assign role to user 
 
         return redirect()->route('loginpage')->with('success', 'User registered successfully, please login');
     }
@@ -52,6 +71,8 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user=User::findOrFail($id);//find the particular ID
+
+        $user->load('roles');
         
         return view('users.show', compact('user'));
     }
@@ -61,9 +82,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        $roles=Role::all();// Pick the roles available from the roles Table
+
         $user=User::findOrFail($id);//find the particular ID
         
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -72,16 +95,17 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
        $user=User::findOrFail($id);// get the current user ID
-       dd($user); 
+    //    dd($user); 
         $request->validate([
             'name' =>'required',
-            'email' => 'required|email|max:255|unique:user,email,' . $user_id, // Ignore the current user's email
+            'email' => 'required|email|max:255|unique:users,email,' . $id, // Ignore the current user's email
             'gender' =>'required',
             'phone' =>'required',  
         ]);
-        dd($request); 
-       $user->update($request->validated());
-        dd($request->validated());
+        // dd($request); 
+       $user->update($request->all());
+       //Assign the new role
+       $user->assignRole($request->roles);
 
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');

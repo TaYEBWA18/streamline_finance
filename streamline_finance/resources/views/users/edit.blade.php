@@ -2,9 +2,10 @@
   
 @section('content')
 <div class="container">
-  <form action="{{route('users.update', $user->id)}}" method="PUT">
+  <form action="{{route('users.update', $user->id)}}" method="POST">
   @csrf
-  
+  @method('PUT')
+
     <h4>EDIT USER DETAILS HERE </h4>
 
     <div class="row">
@@ -53,6 +54,20 @@
           <label for="gender-female">Female</label>
         </div>
         @error('gender') <div class="alert-alert-danger">
+                    {{ $message }}
+                  </div> 
+                  @enderror
+      </div>
+      <div class="form-group">
+            <h6>Update-Maintain Role</h6>
+                <label for="category_id">Role</label>
+                <select name="roles" class="form-control">
+                    <option value="">Select Role</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @endforeach
+                </select><br>
+          @error('role') <div class="alert-alert-danger">
                     {{ $message }}
                   </div> 
                   @enderror

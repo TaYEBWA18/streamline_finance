@@ -7,9 +7,15 @@
                 <h2>USERS' TABLE</h2>
             </div>
             <div class="pull-right">
+                @can('create_users')
                 <a class="btn btn-success" href="{{route('users.create')}}"> ADD USER</a>
-                <a class="btn btn-success" href="">Back</a>
+                @endcan
+                @can('create_roles')
+                <a class="btn btn-success" href="{{route('roles.index')}}">Roles</a>
+                @endcan
+                @can('delete_users')
                 <a class="btn btn-success" href="{{route('inactive.users')}}">INACTIVE USERS</a>
+                @endcan
 
             </div>
             
@@ -30,6 +36,7 @@
             <th>Phone number</th>
             <th>Gender</th>
             <th>Email</th>
+            <th>Role</th>
 
             
            
@@ -42,17 +49,22 @@
             <td>{{ $user->phone}}</td>
             <td>{{ ($user->gender =='M')? 'Male':'Female'}}</td>
             <td>{{ $user->email}}</td>
+            <td> @foreach ($user->roles as $role)
+                {{ $role->name }}
+                @endforeach</td>
             <td>
                 <form action="{{ route('users.destroy',$user->id) }}" method="POST">
    
                     <a class="btn btn-info" href="{{route('users.show', $user->id)}}">Show</a>
-    
+                    @can('edit_users')
                     <a class="btn btn-primary" href="{{route('users.edit', $user->id)}}">Edit</a>
+                    @endcan 
    
                     @csrf
                     @method('DELETE')
-      
+                    @can('delete_users')
                     <button type="submit" class="btn btn-danger">Delete</button>
+                    @endcan
                 </form>
             </td>
         </tr>
@@ -62,13 +74,5 @@
     
   
     {!! $users->links() !!}
-    <div class="logout">
-        <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" style="background: green; border: none; color: white; cursor: pointer; border-radius: 10px;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </form>
-        </div>
       
 @endsection

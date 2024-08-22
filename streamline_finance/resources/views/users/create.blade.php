@@ -45,7 +45,7 @@
         <div class="input-icon"><i class="fa fa-lock"></i></div>
       </div>
      
-   
+
       <div class="col-half">
         <h4>Gender</h4>
         <div class="input-group">
@@ -55,6 +55,20 @@
           <label for="gender-female">Female</label>
         </div>
         @error('gender') <div class="alert-alert-danger">
+                    {{ $message }}
+                  </div> 
+                  @enderror
+      </div>
+      <!-- To add a role while creating a user -->
+      <div class="form-group">
+                <label for="category_id">Role</label>
+                <select name="roles" class="form-control">
+                    <option value="">Select Role</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @endforeach
+                </select><br>
+          @error('role') <div class="alert-alert-danger">
                     {{ $message }}
                   </div> 
                   @enderror

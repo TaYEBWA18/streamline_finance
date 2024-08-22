@@ -8,8 +8,8 @@
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{route('roles.create')}}"> Add Role</a>
-                <a class="btn btn-success" href="">Deleted Roles</a>
-                <a class="btn btn-success" href="">Back</a>
+                <a class="btn btn-success" href="">Innactive Roles</a>
+                <a class="btn btn-success" href="{{route('users.index')}}">Back</a>
             </div>
             
         </div>
@@ -25,10 +25,10 @@
         <!-- table to return the inserted patients' data -->
         <tr>
             <th width="20%">Role ID</th>
-            <th width="25%">Name</th>
-            <th width="25%">Permissions</th>
-            <th width="30%">Action</th>
-        </tr>
+            <th width="20%">Name</th>
+            <th width="40%">Permissions</th>
+            <th width="20%">Actions</th>
+
         @foreach ($roles as $role)
         <!-- @php 
         
@@ -36,12 +36,17 @@
         <tr>
             <td>{{'R-'}}{{$role->id}}</td>
             <td>{{ $role->name}}</td>
-            <td></td> <!--concacting name -->
+            <td  > @foreach ($role->permissions as $permission)
+                <h6 style="background-color:#218380;
+                        color: #ffffff;
+                        padding: 5px;
+                        border-radius: 10px;"
+                        >
+                {{ $permission->name }}</h6>
+                @endforeach</td>
             <td>
-                <form action="" method="POST">
-   
-                    <a class="btn btn-info" href="">Select</a>
-    
+                <form action="{{route('roles.destroy', $role->id)}}" method="POST">
+                  
                     <a class="btn btn-primary" href="">Edit</a>
    
                     @csrf

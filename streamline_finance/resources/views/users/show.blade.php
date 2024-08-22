@@ -33,8 +33,10 @@
                 {{ $user->updated_at }}
             </div>
             <div class="form-group">
-                <!-- <strong>Registered at:</strong> -->
-                
+                <strong>Role:</strong>
+                @foreach ($user->roles as $role)
+                {{ $role->name }}
+                @endforeach
             </div>
     
         </div>

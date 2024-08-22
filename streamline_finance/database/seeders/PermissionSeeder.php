@@ -28,7 +28,7 @@ class PermissionSeeder extends Seeder
             'delete_roles',
             'create_roles',
         ];
-
+// ADD CATEGORIES
         foreach
         ($permissions as $permission){
             Permission::create(['name' => $permission]);
