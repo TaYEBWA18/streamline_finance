@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
 // Route::get('/signup', [UserController::class,'create'])->name('signup');
 
 //to return the log in page
-Route::get('/login', function () {return view('users.login'); })->name('loginpage');
+Route::get('/login', function () {return view('users.login'); })->name('login');
 //for the login authentication logic
-Route::get('/', [UserController::class, 'login'])->name('login');
+Route::get('/', [UserController::class, 'login'])->name('loginpage');
 

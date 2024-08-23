@@ -2,7 +2,7 @@
   
 @section('content')
 <div class="container">
-  <form action="{{route('login')}}" method="GET">
+  <form action="{{route('loginpage')}}" method="GET">
   @csrf
 
   <div class="image">

@@ -135,7 +135,7 @@ class UserController extends Controller
         // Authentication passed
         $request->session()->regenerate();
 
-        return redirect()->route('users.index')
+        return redirect()->route('home')
                          ->with('success', 'You are successfully logged in!');
     }
 
