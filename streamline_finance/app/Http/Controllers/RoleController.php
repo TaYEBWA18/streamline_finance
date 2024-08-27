@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\permission_categories;
 use Spatie\Permission\Models\Permission;
 
 
@@ -29,9 +30,11 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $categories=permission_categories::all();
+
         $permissions=Permission::all();
         //to return the create function
-        return view('roles.create', compact('permissions'));
+        return view('roles.create', compact('permissions', 'categories'));
     }
 
     /**

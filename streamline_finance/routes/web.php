@@ -27,8 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     //inactive user routes
     Route::get('/inactive', [UserController::class, 'inactiveUsers'])->name('inactive.users');
-    //route to show the profile of a specific user
-    // Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show');
+    //route to permanently delete a user
+    Route::get('/delete', [UserController::class, 'deleteUser'])->name('deleteUser');
     //To restore innactive users
     Route::post('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
 

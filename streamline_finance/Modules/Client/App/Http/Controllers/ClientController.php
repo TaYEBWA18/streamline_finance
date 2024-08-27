@@ -14,6 +14,15 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
+    //permission middleware
+    public function __construct()
+    {
+
+        $this->middleware('permission:create_clients', ['only' => ['create','store']]);
+        $this->middleware('permission:delete_clients', ['only' => ['destroy']]);
+        $this->middleware('permission:edit_clients', ['only' => ['edit','update']]);
+
+    }
     public function index()
     {
         $clients=Client::paginate(10);
@@ -56,15 +65,23 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        // return view('client::edit');
+        $client=Client::find($id);
+
+        return view('client::clients.edit', compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(CreateClientRequest $request, $id): RedirectResponse
     {
-        //
+
+        $validatedData = $request->validated();
+
+        Client::find($id)->update($validatedData);
+
+        return redirect()->route('client.index')->with('success', 'Client updated successfully.');
+        
     }
 
     /**
@@ -72,6 +89,28 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client=Client::findOrFail($id);
+
+        $client->delete();
+         
+        return redirect()->route('client.index')
+                        ->with('success','Client deleted successfully');
     }
+    //inactive users
+public function inactiveClient(){
+    $clients=Client::onlyTrashed()->paginate(10);
+    //view only trashed patients
+    return view('client::clients.inactive', compact('clients'));
+ }
+
+ //restore function to reactivate inactive users
+ public function restore($id){
+    $client=Client::withTrashed()->where('id', $id)->first();
+
+    $client->restore();
+
+    return redirect()->route('inactive.clients')//return them to reactivate inactive users
+                        ->with('success','Client restored successfully');
+ }
+
 }

@@ -172,11 +172,19 @@ public function inactiveUsers(){
  }
 
  //delete function to permanently delete inactive users
-//  public function deleteUser($id){
-//     $user=User::withTrashed()->where('id', $id)->first();
-//     $user->forceDelete();
+ public function deleteUser($id){
+    $user=User::withTrashed()->where('id', $id)->first();
+    $user->forceDelete();
 
-//     return redirect()->route('inactiveUsers')
-//                         ->with('success','User deleted permanently');
-//  }
+    return redirect()->route('inactiveUsers')
+                        ->with('success','User deleted permanently');
+ }
+
+ public function home($id){
+    
+    $user=User::findOrFail($id);
+
+    return view('users.home', compact('users'));
+}
+
 }

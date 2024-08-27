@@ -2,4 +2,6 @@
 
 @section('content')
 
+<strong>Welcome:  </strong>
+
 @endsection

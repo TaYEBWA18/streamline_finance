@@ -30,7 +30,7 @@
 
             
            
-            <th width="280px">Action</th>
+            @can('delete_users')<th width="280px">Action</th>@endcan
         </tr>
         @foreach ($users as $user)
         <tr>
@@ -39,18 +39,24 @@
             <td>{{ $user->phone}}</td>
             <td>{{ ($user->gender =='M')? 'Male':'Female'}}</td>
             <td>{{ $user->email}}</td>
-            <td>
+            @can('delete_users')
+            <td style="display: flex; gap: 10px; align-items: center;">
                 <form action="{{ route('user.restore',$user->id) }}" method="POST">
-   
+                
                 <button class="btn btn-info" type="submit"><i class="fas fa-undo"></i> Restore</button>
                     <!-- the restore button -->
    
-                    @csrf
-                   
-      
-                  
+                    @csrf 
+                </form><br>
+                <form action="{{ route('deleteUser',$user->id) }}" method="POST">
+                
+                <button class="btn btn-info" type="submit"><i class="fas fa-trash"></i> Delete Permanently</button>
+                
+                    <!-- the restore button -->
+   
+                    @csrf 
                 </form>
-            </td>
+            </td>@endcan
         </tr>
         @endforeach
     </div>

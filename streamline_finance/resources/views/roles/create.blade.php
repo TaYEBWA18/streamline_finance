@@ -18,7 +18,7 @@
 <!-- csrf prevents input injection from the browswe-->
     @csrf
   
-     <div class="row">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
       
             <div class="form-group">
@@ -30,16 +30,25 @@
                   @enderror
             </div>
             <div class="form-group">
-                <strong>Permissions:</strong> 
+    
+                @foreach($categories as $category)
+
                 <div class="checkbox-group">
-                    @foreach($permissions as $permission)
-                        <div class="form-check">
-                            <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" class="form-check-input" id="permission-{{ $permission->id }}">
-                            <label class="form-check-label" for="permission-{{ $permission->id }}">
-                                {{ $permission->name }}
-                            </label>
-                        </div>
+                    <strong>{{ $category->category_name }}</strong>
+                        @foreach($category->permissions as $permission)
+                
+                    <div class="form-check">
+                        <input type="checkbox" name="permissions[]" value="{{ $permission->name }}" class="form-check-input" id="permission-{{ $permission->id }}">
+                        <label class="form-check-label" for="permission-{{ $permission->id }}">
+                         {{ $permission->name }}
+                        </label> 
+                    </div>
                     @endforeach
+                </div>
+                @endforeach
+                
+        </div>
+
                 @error('permissions') <div class="alert alert-danger">
                     {{ $message }}
                   </div> 

@@ -8,7 +8,7 @@
             </div>
             <div class="pull-right">
                 @can('create_users')
-                <a class="btn btn-success" href="{{route('users.create')}}"> ADD USER</a>
+                <a class="btn btn-success" href="{{route('users.create')}}"><i class="fa fa-add"></i> ADD USER</a>
                 @endcan
                 @can('create_roles')
                 <a class="btn btn-success" href="{{route('roles.index')}}">Roles</a>
@@ -55,15 +55,14 @@
             <td>
                 <form action="{{ route('users.destroy',$user->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{route('users.show', $user->id)}}">Show</a>
+                <a class="btn btn-info" href="{{route('users.show', $user->id)}}"><i class="fas fa-eye"></i>Show</a>
                     @can('edit_users')
-                    <a class="btn btn-primary" href="{{route('users.edit', $user->id)}}">Edit</a>
+                    <a class="btn btn-primary" href="{{route('users.edit', $user->id)}}"><i class="fas fa-edit"></i>Edit</a>
                     @endcan 
-   
                     @csrf
                     @method('DELETE')
                     @can('delete_users')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>Delete</button>
                     @endcan
                 </form>
             </td>

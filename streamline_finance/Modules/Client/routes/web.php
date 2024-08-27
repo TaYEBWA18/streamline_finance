@@ -14,6 +14,13 @@ use Modules\Client\App\Http\Controllers\ClientController;
 |
 */
 
-Route::group([], function () {
+
+Route::middleware(['auth'])->group(function () {
     Route::resource('client', ClientController::class)->names('client');
+    //route to innactive clients
+    Route::get('/inactiveClient', [ClientController::class, 'inactiveClient'])->name('inactive.clients');
+    //route to restore inactive clients
+    Route::post('/client/{id}/restore', [ClientController::class,'restore'])->name('client.restore');
+   
+    
 });

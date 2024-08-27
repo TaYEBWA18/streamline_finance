@@ -15,14 +15,14 @@ class CreateClientRequest extends FormRequest
         return [
             'name' => 'required',
             'location'=>'required',
-            'client_email'=>'required',
+            'client_email'=>'required|email:rfc,dns',
             'level'=>'required',
             'billing_cycle'=> 'required',
             'contact_name'=>'required',
             'contact_phone' => 'required',
             'support_name' => 'required',
             'support_phone'=> 'required',
-            'support_email'=> 'required',
+            'support_email'=> 'required |email:rfc,dns',
         ];
     }
 

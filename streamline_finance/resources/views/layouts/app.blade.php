@@ -27,12 +27,15 @@
             overflow-y: auto;
             
         }
+    
         .sidebar .nav-link.active {
             background-color: #2e89e4;
             border-radius: 4px;
+           
         }
         .sidebar .nav-link.sub-link {
             padding-left: 30px;
+           
         }
 
     </style>
@@ -59,21 +62,24 @@
                             <i class="fa fa-gauge"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
                             <a class="nav-link sub-link" href="{{route('client.index')}}"> View Clients</a>
                             <a class="nav-link sub-link"  href="{{route('client.create')}}"> Register Client</a>
-                            <a class="nav-link sub-link {{ request()->routeIs('') ? 'active' : '' }}" href=""> Innactive Client</a></li>
-                    
-                    <li>
+                            <a class="nav-link sub-link"  href="{{route('inactive.clients')}}"> Innactive Client</a></li>
+                         @can('create_users')
+                        <li>
                         <a href="{{route('users.index')}}" class="nav-link px-0 align-middle">
                             <i class="fa fa-users"></i> <span class="ms-1 d-none d-sm-inline">Users</span> </a>
                             <a class="nav-link sub-link" href="{{route('users.index')}}"> View Users</a>
                             <a class="nav-link sub-link"  href="{{route('users.create')}}"> Register Users</a>
                             <a class="nav-link sub-link" href="{{route('inactive.users')}}"> Innactive Users</a>
                             <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            </li> @endcan
+                            @can('create_roles')
                             <li>
                             <i class="fa fa-key"></i> <span class="ms-1 d-none d-sm-inline">Role Management</span>
                                 <a class="nav-link sub-link" href="{{route('roles.index')}}"> View Roles</a>
                                 <a class="nav-link sub-link"  href="{{route('roles.create')}}"> Create New Role</a>
                                 <a class="nav-link sub-link" href="{{route('inactive.users')}}"> Innactive Roles</a></a>
                             </a></li>
+                            @endcan
 
                     </li>
                 </ul>

@@ -85,15 +85,9 @@
             <td>@if($client->status == 1) Active @else Inactive @endif</td>
     
             <td>
-                <form action="{{route('client.destroy', $client->id)}}" method="POST">
-
-                    <a class="btn btn-primary" href=""><i class="fa fa-check"></i>Select</a>
-                    @can('edit_clients')
-                    <a class="btn btn-primary" href="{{route('client.edit', $client->id)}}"><i class="fa fa-edit"></i>Edit</a>
-                    @endcan
+                <form action="{{route('client.restore', $client->id)}}" method="POST">
                     @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-undo"></i>Restore</button>
                 </form>
             </td>
         </tr>
