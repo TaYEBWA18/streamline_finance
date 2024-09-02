@@ -83,7 +83,13 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        
+        $role = Role::findOrFail($id);
+
+        $permissions=Permission::all();
+
+        $categories=permission_categories::all();
+
+        return view('roles.edit', compact('categories', 'permissions', 'role'));
     }
 
     /**
@@ -91,7 +97,22 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //to validate the request data
+        $request->validate([
+            'name' => ['required','string','max:255'],
+        ]);
+
+        //to get the role
+        $role = Role::findById($id);
+
+        //to update the role
+        $role->update(['name' => $request->name]);
+
+        //to sync permissions with the role
+        $role->syncPermissions($request->permissions);
+
+        //to redirect to the roles index page
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
 
     /**

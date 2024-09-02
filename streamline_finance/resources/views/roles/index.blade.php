@@ -47,7 +47,7 @@
             <td>
                 <form action="{{route('roles.destroy', $role->id)}}" method="POST">
                   
-                    <a class="btn btn-primary" href="">Edit</a>
+                    <a class="btn btn-primary" href="{{route('roles.edit', $role->id)}}">Edit</a>
    
                     @csrf
                     @method('DELETE')

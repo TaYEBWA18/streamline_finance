@@ -112,5 +112,9 @@ public function inactiveClient(){
     return redirect()->route('inactive.clients')//return them to reactivate inactive users
                         ->with('success','Client restored successfully');
  }
+ //Client status 
+ public function status(){
+    return view('client::payments.status');
+ }
 
 }

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Client\App\Http\Controllers\ClientController;
+use Modules\Client\App\Http\Controllers\MailController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inactiveClient', [ClientController::class, 'inactiveClient'])->name('inactive.clients');
     //route to restore inactive clients
     Route::post('/client/{id}/restore', [ClientController::class,'restore'])->name('client.restore');
+    //route to the status view
+    Route::get('/status', [ClientController::class, 'status'])->name('status');
+    //emails
+    Route::get('/send-mail', [MailController::class, 'index'])->name('send-mail');
+    
    
     
 });
+

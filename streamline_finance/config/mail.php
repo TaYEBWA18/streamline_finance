@@ -59,10 +59,10 @@ return [
         ],
 
         'mailgun' => [
-            'transport' => 'mailgun',
-            // 'client' => [
-            //     'timeout' => 5,
-            // ],
+            'domain' => env('MAILGUN_DOMAIN'),
+            'secret' => env('MAILGUN_SECRET'),
+            'endpoint' => env('MAILGUN_ENDPOINT', 'api.eu.mailgun.net'),
+            'scheme' => 'https',
         ],
 
         'sendmail' => [
@@ -108,8 +108,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'tayebwa.tsm@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Tayebwa'),
     ],
 
     /*

@@ -51,19 +51,29 @@
                 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="fs-5 d-none d-sm-inline">Menu</span>
                 </a>
+
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
                         <a href="{{route('home')}}" class="nav-link align-middle px-0">
                             <i class="fa fa-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
                     </li>
+                    
                     <li>
                         <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fa fa-gauge"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                            <i class="fa fa-gauge"></i> <span class="ms-1 d-none d-sm-inline">Client Management</span> </a>
                             <a class="nav-link sub-link" href="{{route('client.index')}}"> View Clients</a>
                             <a class="nav-link sub-link"  href="{{route('client.create')}}"> Register Client</a>
                             <a class="nav-link sub-link"  href="{{route('inactive.clients')}}"> Innactive Client</a></li>
                          @can('create_users')
+                        <li>
+                        <li>
+                        <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fa fa-envelope"></i> <span class="ms-1 d-none d-sm-inline"> Mails</span></a>
+                            <a class="nav-link sub-link" href="{{route('send-mail')}}"> Send Reminder</a>
+                            <a class="nav-link sub-link"  href=""> View mails</a>
+                           
+                        </li>
                         <li>
                         <a href="{{route('users.index')}}" class="nav-link px-0 align-middle">
                             <i class="fa fa-users"></i> <span class="ms-1 d-none d-sm-inline">Users</span> </a>
@@ -72,6 +82,7 @@
                             <a class="nav-link sub-link" href="{{route('inactive.users')}}"> Innactive Users</a>
                             <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             </li> @endcan
+                            
                             @can('create_roles')
                             <li>
                             <i class="fa fa-key"></i> <span class="ms-1 d-none d-sm-inline">Role Management</span>
