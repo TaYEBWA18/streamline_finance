@@ -16,13 +16,12 @@
         }
         .content {
             flex: 1;
-            padding: 50px;
             background-color: #ffffff; /* Ensure content area is also light to match the sidebar */
             border-color: grey;
             box-sizing: border-box;
             position: relative;
             z-index: 1;
-            margin-top: 56px; /* Adjust based on the navbar height */
+            margin-top: 100px; /* Adjust based on the navbar height */
             margin-bottom: 56px;
             overflow-y: auto;
             
@@ -70,8 +69,10 @@
                         <li>
                         <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fa fa-envelope"></i> <span class="ms-1 d-none d-sm-inline"> Mails</span></a>
-                            <a class="nav-link sub-link" href="{{route('send-mail')}}"> Send Reminder</a>
+                            <a class="nav-link sub-link" href="{{route('send-mail')}}"> Send Mails</a>
                             <a class="nav-link sub-link"  href=""> View mails</a>
+                            <a class="nav-link sub-link"  href="{{route('custom-mail')}}"> Custom Mails</a>
+                            
                            
                         </li>
                         <li>

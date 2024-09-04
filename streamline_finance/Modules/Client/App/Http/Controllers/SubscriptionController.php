@@ -6,34 +6,27 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Mail;
-use App\Mail\ClientReminder;
-use App\Models\Client;
+use Modules\Client\App\Models\Subscription;
+use Modules\Client\App\Models\Client;
 
-  
 
-class MailController extends Controller
+class SubscriptionController extends Controller
 {
     /**
-     * Write code on Method
-     *
-     * @return response()
+     * Display a listing of the resource.
      */
     public function index()
     {
-        $mailData = [
-            'title' => 'Mail from Streamline Health Tech',
-            'body' => 'This is for testing email using smtp and asking for our money bro...!'
-        ];
-         
-        Mail::to('lemi.manoah@gmail.com')->send(new ClientReminder($mailData));
-        
-        return redirect()->route('home')//return them to reactivate inactive users
-        ->with('success','Email sent successfully');
+        return view('client::subscriptions.index');
     }
+
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        return view('client::emails.custommail');
+        $clients=Client::all();
+        return view('client::subscriptions.create', compact('clients'));
     }
 
     /**
@@ -41,7 +34,20 @@ class MailController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        //
+        $validatedData = $request->validate([
+            'status' =>'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+        
+        dd($validatedData);
+
+        Subscription::create($validatedData);
+
+        return redirect()->route('subscription.index')
+            ->with('success', 'Subscription created successfully.');
+
+
     }
 
     /**
@@ -49,7 +55,7 @@ class MailController extends Controller
      */
     public function show($id)
     {
-        return view();
+        return view('client::show');
     }
 
     /**
@@ -57,7 +63,7 @@ class MailController extends Controller
      */
     public function edit($id)
     {
-        return view();
+        return view('client::edit');
     }
 
     /**

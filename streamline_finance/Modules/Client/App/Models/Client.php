@@ -31,6 +31,10 @@ class Client extends Model
         'support_email',
     ];
     
+    //add subscription(Invoice) relationship
+    public function subscription(){
+        return $this->hasMany(Subscription::class); //has subscription
+    }
     protected static function newFactory(): ClientFactory
     {
         //return ClientFactory::new();
