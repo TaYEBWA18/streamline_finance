@@ -17,7 +17,9 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        return view('client::subscriptions.index');
+        $subscriptions =Subscription::paginate(10);
+
+        return view('client::subscriptions.index', compact('subscriptions'));
     }
 
     /**
@@ -32,18 +34,11 @@ class SubscriptionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'status' =>'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-        ]);
-        
-        dd($validatedData);
-
-        Subscription::create($validatedData);
-
+        Subscription::create(
+            $request->all()
+        );   
         return redirect()->route('subscription.index')
             ->with('success', 'Subscription created successfully.');
 
@@ -55,7 +50,9 @@ class SubscriptionController extends Controller
      */
     public function show($id)
     {
-        return view('client::show');
+        $subscription=Subscription::findOrFail($id);
+
+        return view('client::show', compact('subscription'));
     }
 
     /**
@@ -63,7 +60,11 @@ class SubscriptionController extends Controller
      */
     public function edit($id)
     {
-        return view('client::edit');
+        $subscription=Subscription::findOrFail($id);
+
+        $clients=Client::all();
+
+        return view('client::subscriptions.edit', compact('subscription', 'clients'));
     }
 
     /**
@@ -71,7 +72,12 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        //
+        $subscription=Subscription::findOrFail($id);
+        $subscription->update($request->all());
+
+        return redirect()->route('subscription.index')
+            ->with('success', 'Subscription updated successfully');
+        
     }
 
     /**

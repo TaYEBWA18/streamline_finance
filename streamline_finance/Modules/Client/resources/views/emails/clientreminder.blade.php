@@ -4,8 +4,10 @@
     <title>Streamline Health Tech</title>
 </head>
 <body>
+
+
   
-    <p>Hi customer,
+    <p>Hi customer ,
 
         We wanted to remind you that your subscription to Streamline EMR is scheduled to renew on 01/01/2025.
 
@@ -19,6 +21,8 @@
 
         Best regards,
         The Streamline Health Tech,  Team</p>
+
+        <p>Kindly find the Invoice attached</p>
      
     <p>Thank you</p>
 </body>

@@ -14,6 +14,7 @@ class Subscription extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
+        'client_id',
         'status',
         'payment_date',
         'expiry_date'

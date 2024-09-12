@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
 class ClientReminder extends Mailable
 {
@@ -16,9 +17,10 @@ class ClientReminder extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($mailData)
     {
-        //
+        $this->mailData = $mailData;
+
     }
 
     /**
@@ -50,6 +52,11 @@ class ClientReminder extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromData(fn () => $this->mailData['pdf']->output(), 'Report.pdf')
+            ->withMime('Invoice/pdf'),
+        ];
     }
 }
+
+

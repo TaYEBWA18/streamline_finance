@@ -58,14 +58,23 @@
                         </a>
                     </li>
                     
-                    <li>
+                        <li>
                         <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fa fa-gauge"></i> <span class="ms-1 d-none d-sm-inline">Client Management</span> </a>
                             <a class="nav-link sub-link" href="{{route('client.index')}}"> View Clients</a>
                             <a class="nav-link sub-link"  href="{{route('client.create')}}"> Register Client</a>
-                            <a class="nav-link sub-link"  href="{{route('inactive.clients')}}"> Innactive Client</a></li>
-                         @can('create_users')
+                            <a class="nav-link sub-link"  href="{{route('inactive.clients')}}"> Innactive Client</a>
+                        </li>
+
                         <li>
+                        <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fa fa-dollar"></i> <span class="ms-1 d-none d-sm-inline">Client Invoices</span> </a>
+                            <a class="nav-link sub-link" href="{{route('subscription.create')}}"> Create Invoice </a>
+                            <a class="nav-link sub-link"  href="{{route('subscription.index')}}"> View  Invoices</a>
+                        </li>
+
+                         @can('create_users')
+                       
                         <li>
                         <a href="" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fa fa-envelope"></i> <span class="ms-1 d-none d-sm-inline"> Mails</span></a>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use PDF;
 use Mail;
 use App\Mail\ClientReminder;
 use App\Models\Client;
@@ -19,14 +20,19 @@ class MailController extends Controller
      *
      * @return response()
      */
-    public function index()
+    public function index($id)
     {
-        $mailData = [
-            'title' => 'Mail from Streamline Health Tech',
-            'body' => 'This is for testing email using smtp and asking for our money bro...!'
-        ];
-         
-        Mail::to('lemi.manoah@gmail.com')->send(new ClientReminder($mailData));
+        $client = Client:: findOrFail($id);
+        
+        $data["email"] = "2020bse063@std.must.ac.ug";
+        $data["title"] = "Streamline Health";
+        $data["body"] = "This is a Demo Mail";
+    
+        $pdf = PDF::loadView('client::emails.custommail', $data);
+        $data["pdf"] = $pdf;
+
+  
+        Mail::to($data["email"])->send(new ClientReminder($data));
         
         return redirect()->route('home')//return them to reactivate inactive users
         ->with('success','Email sent successfully');

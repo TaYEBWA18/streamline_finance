@@ -20,10 +20,10 @@
       
         <div class="form-group">
                 <label for="Client name">Client Name:</label>
-                <select name="roles" class="form-control">
+                <select name="client_id" class="form-control">
                     <option value="">Select Client</option>
                     @foreach ($clients as $client)
-                        <option value="{{ $client->name }}">{{ $client->name }}</option>
+                        <option value="{{ $client->id }}">{{ $client->name }}</option>
                     @endforeach
                 </select>
                 @error('name') <div class="alert-alert-danger">

@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     //Role Controller Routes
     Route::resource('roles', RoleController::class);
     
+    
 });
 //route to show the registration page/
 // Route::get('/signup', [UserController::class,'create'])->name('signup');
